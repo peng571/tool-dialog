@@ -1,0 +1,47 @@
+<LinearLayout
+    android:id="@+id/tabBar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+
+    <dev.momo.library.view.tab.TabImageButton
+        android:id="@+id/tab1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <dev.momo.library.view.tab.TabImageButton
+        android:id="@+id/tab2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <dev.momo.library.view.tab.TabImageButton
+        android:id="@+id/tab3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <dev.momo.library.view.tab.TabImageButton
+        android:id="@+id/tab4"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <dev.momo.library.view.tab.TabImageButton
+        android:id="@+id/tab5"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+
+</LinearLayout>
+
