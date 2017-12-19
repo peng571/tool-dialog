@@ -13,9 +13,4 @@ public class DialogConstants {
     public final static String KEY_ICON_DRAWABLE = "DialogConstants.KEY_ICON";
     public final static String KEY_REQUEST = "DialogConstants.KEY_REQUEST";
 
-    public final static String TAG_PHOTO_PICKER = "Dialog.PHOTO_PICKER";
-    public final static String TAG_PICKER = "Dialog.PICKER";
-    public final static String TAG_YESNO = "Dialog.YESNO";
-    public final static String TAG_OK = "Dialog.OK";
-
 }
