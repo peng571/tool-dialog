@@ -33,6 +33,4 @@ android {
 dependencies {
     compile project(path: ':library-core')
 
-//    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-//    testCompile "junit:junit:$rootProject.ext.junitVersion"
 }

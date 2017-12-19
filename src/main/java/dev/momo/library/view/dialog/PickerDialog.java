@@ -2,14 +2,11 @@ package dev.momo.library.view.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import dev.momo.library.core.log.Logger;
@@ -32,7 +29,7 @@ import static dev.momo.library.view.dialog.DialogConstants.KEY_TITLE_RES;
  * - Handle cancel event with DialogFinishHolder.onDialogCancel
  * - Handle dismiss event with DialogFinishHolder.onDialogDismiss
  */
-public class PickerDialog extends DialogFragment {
+public class PickerDialog extends BaseDialog {
 
     private static final String TAG = PickerDialog.class.getSimpleName();
 
@@ -43,6 +40,7 @@ public class PickerDialog extends DialogFragment {
     }
 
     public static PickerDialog newInstance(@StringRes int titleRes, int requset) {
+        Logger.D(TAG, "new instance");
         PickerDialog f = new PickerDialog();
 
         // Supply num input as an argument.
@@ -56,6 +54,7 @@ public class PickerDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Logger.D(TAG, "on create dialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         ArrayList<PickerItem> items = getItems();
@@ -66,7 +65,7 @@ public class PickerDialog extends DialogFragment {
         String title = "";
         if (getArguments() != null) {
             title = ResourceHelper.getString(getArguments().getInt(KEY_TITLE_RES, 0));
-
+            request = getArguments().getInt(KEY_REQUEST, 0);
         }
 
         if (!title.isEmpty()) {
@@ -78,13 +77,11 @@ public class PickerDialog extends DialogFragment {
             builder.setCustomTitle(titleView);
         }
 
-        builder.setItems(itemNames, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                PickerItem item = getItems().get(which);
-                PickerCallback callback = item.callback;
-                if (callback == null) return;
-                callback.onPick(which, item.name);
-            }
+        builder.setItems(itemNames, (DialogInterface dialog, int which) -> {
+            PickerItem item = getItems().get(which);
+            PickerCallback callback = item.callback;
+            if (callback == null) return;
+            callback.onPick(which, item.name);
         });
         return builder.create();
     }
@@ -118,72 +115,14 @@ public class PickerDialog extends DialogFragment {
         return getItems().size();
     }
 
-
     @Override
-    public void onCancel(DialogInterface dialog) {
-        if (getActivity() == null) return;
-        DialogFinishHolder holder = null;
-
-        // use fragment bigger then activity
-        if (getActivity() instanceof DialogFinishHolder)
-            holder = (DialogFinishHolder) getActivity();
-        if (getTargetFragment() instanceof DialogFinishHolder)
-            holder = (DialogFinishHolder) getTargetFragment();
-
-        if (holder != null) {
-            holder.doOnDialogCancel(getArguments().getInt(KEY_REQUEST));
-        }
-        super.onCancel(dialog);
+    protected int getRequestCode() {
+        return request;
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        if (getActivity() == null) return;
-        DialogFinishHolder holder = null;
-
-        // use fragment bigger then activity
-        if (getActivity() instanceof DialogFinishHolder)
-            holder = (DialogFinishHolder) getActivity();
-        if (getTargetFragment() instanceof DialogFinishHolder)
-            holder = (DialogFinishHolder) getTargetFragment();
-
-        if (holder != null) {
-            holder.doOnDialogDismiss(getArguments().getInt(KEY_REQUEST));
-        }
-        super.onDismiss(dialog);
+    protected String getTagName() {
+        return TAG;
     }
-
-
-    /**
-     * Add code below into base fragment class could fix many fragment exception when change
-     */
-    private static final Field sChildFragmentManagerField;
-
-    static {
-        Field f = null;
-        try {
-            f = Fragment.class.getDeclaredField("mChildFragmentManager");
-            f.setAccessible(true);
-        } catch (NoSuchFieldException e) {
-            Logger.E(TAG, "Error getting mChildFragmentManager field", e);
-        }
-        sChildFragmentManagerField = f;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        if (sChildFragmentManagerField != null) {
-            try {
-                sChildFragmentManagerField.set(this, null);
-            } catch (Exception e) {
-                Logger.E(TAG, "Error setting mChildFragmentManager field", e);
-            }
-        }
-    }
-    /**
-     * End
-     */
 }
 
