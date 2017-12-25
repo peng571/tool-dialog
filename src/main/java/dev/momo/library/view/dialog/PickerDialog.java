@@ -38,6 +38,9 @@ public class PickerDialog extends DialogFragment {
 
     protected ArrayList<PickerItem> items;
 
+    public static PickerDialog newInstance() {
+        return newInstance(0, 0);
+    }
 
     public static PickerDialog newInstance(@StringRes int titleRes, int requset) {
         PickerDialog f = new PickerDialog();
@@ -61,7 +64,7 @@ public class PickerDialog extends DialogFragment {
             itemNames[i] = items.get(i).name;
         }
         String title = "";
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             title = ResourceHelper.getString(getArguments().getInt(KEY_TITLE_RES, 0));
 
         }
