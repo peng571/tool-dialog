@@ -10,8 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
+
+//    compileOptions {
+//        sourceCompatibility rootProject.ext.sourceCompatibility
+//        targetCompatibility rootProject.ext.sourceCompatibility
+//    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -24,10 +29,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.sourceCompatibility
-    }
 }
 
 dependencies {
