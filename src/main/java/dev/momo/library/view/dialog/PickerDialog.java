@@ -35,6 +35,9 @@ public class PickerDialog extends BaseDialog {
 
     protected ArrayList<PickerItem> items;
 
+    public static PickerDialog newInstance() {
+        return newInstance(0, 0);
+    }
 
     public static PickerDialog newInstance(@StringRes int titleRes, int requset) {
         Logger.D(TAG, "new instance");

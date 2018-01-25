@@ -55,3 +55,4 @@
 }
 
 
+-dontwarn java.lang.invoke.**

@@ -4,14 +4,19 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.sourceCompatibility
+    }
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -23,18 +28,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.sourceCompatibility
-    }
-
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(path: ':library-core')
 
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
+//    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+//    testCompile "junit:junit:$rootProject.ext.junitVersion"
 }

@@ -40,7 +40,7 @@ public abstract class BaseDialog extends DialogFragment {
 
         try {
             fm = activity.getFragmentManager();
-            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
+//            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             show(fm, TAG);
         } catch (IllegalStateException ignored) {
@@ -58,7 +58,7 @@ public abstract class BaseDialog extends DialogFragment {
 
         try {
             fm = fragment.getFragmentManager();
-            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
+//            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             setTargetFragment(fragment, getRequestCode());
             show(fm, getTagName());
@@ -146,10 +146,10 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         Logger.D(TAG, "on dismiss");
-        if (fm != null) {
-            fm.popBackStack();
+//        if (fm != null) {
+//            fm.popBackStack();
             fm = null;
-        }
+//        }
         submitPressed = false;
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
