@@ -88,37 +88,34 @@ public class YesNoDialog extends DialogFragment {
         }
 
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (getActivity() == null) return;
-                switch (which) {
-                    case BUTTON_POSITIVE:
-                        DialogYesHolder holderYes = null;
-                        // use fragment bigger then activity
-                        if (getActivity() instanceof DialogYesHolder)
-                            holderYes = (DialogYesHolder) getActivity();
-                        if (getTargetFragment() instanceof DialogYesHolder)
-                            holderYes = (DialogYesHolder) getTargetFragment();
-                        if (holderYes != null) {
-                            holderYes.doOnDialogYesClick(request);
-                        }
-                        dialog.dismiss();
-                        break;
-                    case BUTTON_NEGATIVE:
-                        DialogNoHolder holderNo = null;
-                        // use fragment bigger then activity
-                        if (getActivity() instanceof DialogNoHolder)
-                            holderNo = (DialogNoHolder) getActivity();
-                        if (getTargetFragment() instanceof DialogNoHolder)
-                            holderNo = (DialogNoHolder) getTargetFragment();
+        DialogInterface.OnClickListener dialogClickListener = (DialogInterface dialog, int which) -> {
+            if (getActivity() == null) return;
+            switch (which) {
+                case BUTTON_POSITIVE:
+                    DialogYesHolder holderYes = null;
+                    // use fragment bigger then activity
+                    if (getActivity() instanceof DialogYesHolder)
+                        holderYes = (DialogYesHolder) getActivity();
+                    if (getTargetFragment() instanceof DialogYesHolder)
+                        holderYes = (DialogYesHolder) getTargetFragment();
+                    if (holderYes != null) {
+                        holderYes.doOnDialogYesClick(request);
+                    }
+                    dialog.dismiss();
+                    break;
+                case BUTTON_NEGATIVE:
+                    DialogNoHolder holderNo = null;
+                    // use fragment bigger then activity
+                    if (getActivity() instanceof DialogNoHolder)
+                        holderNo = (DialogNoHolder) getActivity();
+                    if (getTargetFragment() instanceof DialogNoHolder)
+                        holderNo = (DialogNoHolder) getTargetFragment();
 
-                        if (holderNo != null) {
-                            holderNo.doOnDialogNoClick(request);
-                        }
-                        dialog.dismiss();
-                        break;
-                }
+                    if (holderNo != null) {
+                        holderNo.doOnDialogNoClick(request);
+                    }
+                    dialog.dismiss();
+                    break;
             }
         };
 

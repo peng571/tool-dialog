@@ -77,13 +77,11 @@ public class PickerDialog extends DialogFragment {
             builder.setCustomTitle(titleView);
         }
 
-        builder.setItems(itemNames, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                PickerItem item = getItems().get(which);
-                PickerCallback callback = item.getCallback();
-                if (callback == null) return;
-                callback.onPick(which, item.getValue());
-            }
+        builder.setItems(itemNames, (DialogInterface dialog, int which) -> {
+            PickerItem item = getItems().get(which);
+            PickerCallback callback = item.getCallback();
+            if (callback == null) return;
+            callback.onPick(which, item.getValue());
         });
         return builder.create();
     }
@@ -123,6 +121,11 @@ public class PickerDialog extends DialogFragment {
         return getItems().size();
     }
 
+    public PickerItem getItem(int index) {
+        if (items == null) return null;
+        if (index < 0 || index >= items.size()) return null;
+        return items.get(index);
+    }
 
     @Override
     public void onCancel(DialogInterface dialog) {
