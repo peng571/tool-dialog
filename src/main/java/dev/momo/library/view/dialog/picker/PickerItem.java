@@ -1,9 +1,10 @@
-package dev.momo.library.view.dialog;
+package dev.momo.library.view.dialog.picker;
 
 
 import android.support.annotation.StringRes;
 
 import dev.momo.library.core.tool.ResourceHelper;
+import dev.momo.library.view.dialog.picker.PickerCallback;
 
 public class PickerItem {
 

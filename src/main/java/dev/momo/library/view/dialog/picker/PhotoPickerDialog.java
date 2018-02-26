@@ -1,4 +1,4 @@
-package dev.momo.library.view.dialog;
+package dev.momo.library.view.dialog.picker;
 
 import android.app.Activity;
 import android.app.Fragment;
