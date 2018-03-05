@@ -45,8 +45,15 @@ public class PickerItem<T> {
         return callback;
     }
 
+
+    public void click(){
+        callback.onPick(0, getValue());
+    }
+
     public interface PickerOption<T> {
         String getName(T t);
     }
+
+
 
 }
