@@ -27,7 +27,7 @@ public class PickerItem<T> {
         this.callback = callback;
     }
 
-    public void click(){
+    public void click() {
         callback.onPick(0, getValue());
     }
 
@@ -45,15 +45,8 @@ public class PickerItem<T> {
         return callback;
     }
 
-
-    public void click(){
-        callback.onPick(0, getValue());
-    }
-
     public interface PickerOption<T> {
         String getName(T t);
     }
-
-
 
 }

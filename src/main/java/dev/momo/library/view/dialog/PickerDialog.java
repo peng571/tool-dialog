@@ -126,11 +126,6 @@ public class PickerDialog extends DialogFragment {
         return getItems().size();
     }
 
-    public PickerItem getItem(int index) {
-        if (items == null) return null;
-        if (index < 0 || index >= items.size()) return null;
-        return items.get(index);
-    }
 
     @Override
     public void onCancel(DialogInterface dialog) {
