@@ -27,6 +27,10 @@ public class PickerItem<T> {
         this.callback = callback;
     }
 
+    public void click(){
+        callback.onPick(0, getValue());
+    }
+
 
     public String getName() {
         return name;

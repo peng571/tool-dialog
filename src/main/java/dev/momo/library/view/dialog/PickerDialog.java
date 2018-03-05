@@ -119,6 +119,11 @@ public class PickerDialog extends DialogFragment {
         return items;
     }
 
+    public PickerItem<?> getItem(int position) {
+        if (position < 0 || position >= items.size()) return null;
+        return items.get(position);
+    }
+
     public int getCount() {
         return getItems().size();
     }
