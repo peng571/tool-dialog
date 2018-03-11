@@ -35,7 +35,7 @@ public class PickerDialog extends BaseDialog {
 
     private static final String TAG = PickerDialog.class.getSimpleName();
 
-    protected ArrayList<PickerItem> items;
+    protected ArrayList<PickerItem<?>> items;
 
     public static PickerDialog newInstance() {
         return newInstance(0, 0);
@@ -59,10 +59,10 @@ public class PickerDialog extends BaseDialog {
         Logger.D(TAG, "on create dialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ArrayList<PickerItem> items = getItems();
+        ArrayList<PickerItem<?>> items = getItems();
         String[] itemNames = new String[items.size()];
         for (int i = 0; i < items.size(); i++) {
-            itemNames[i] = items.get(i).name;
+            itemNames[i] = items.get(i).getName();
         }
         String title = "";
         if (getArguments() != null) {
@@ -81,9 +81,10 @@ public class PickerDialog extends BaseDialog {
 
         builder.setItems(itemNames, (DialogInterface dialog, int which) -> {
             PickerItem item = getItems().get(which);
-            PickerCallback callback = item.callback;
+            PickerCallback callback = item.getCallback();
             if (callback == null) return;
-            callback.onPick(which, item.name);
+            callback.onPick(which, item.getValue());
+
         });
         return builder.create();
     }
@@ -95,22 +96,33 @@ public class PickerDialog extends BaseDialog {
     }
 
 
-    public PickerDialog addItem(@StringRes int stringRes, PickerCallback callback) {
-        getItems().add(new PickerItem(ResourceHelper.getString(stringRes), callback));
+    public PickerDialog addItem(@StringRes int stringRes, PickerCallback<String> callback) {
+        getItems().add(new PickerItem<String>(ResourceHelper.getString(stringRes), callback));
         return this;
     }
 
 
-    public PickerDialog addItem(String name, PickerCallback callback) {
-        getItems().add(new PickerItem(name, callback));
+    public PickerDialog addItem(String name, PickerCallback<String> callback) {
+        getItems().add(new PickerItem<String>(name, callback));
         return this;
     }
 
-    protected ArrayList<PickerItem> getItems() {
+    public <T> PickerDialog addItem(T object, PickerItem.PickerOption<T> option, PickerCallback<T> callback) {
+        getItems().add(new PickerItem<T>(object, option, callback));
+        return this;
+    }
+
+
+    protected ArrayList<PickerItem<?>> getItems() {
         if (items == null) {
             items = new ArrayList<>();
         }
         return items;
+    }
+
+    public PickerItem<?> getItem(int position) {
+        if (position < 0 || position >= items.size()) return null;
+        return items.get(position);
     }
 
     public int getCount() {

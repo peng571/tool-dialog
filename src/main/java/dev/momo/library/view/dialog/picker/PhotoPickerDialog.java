@@ -22,13 +22,13 @@ public class PhotoPickerDialog {
 
     public static PickerDialog get(final Activity activity) {
         return PickerDialog.newInstance(R.string.photo_title, REQUEST_PICK_PHOTO_CODE)
-                .addItem(R.string.photo_camera, new PickerCallback() {
+                .addItem(R.string.photo_camera, new PickerCallback<String>() {
                     @Override
                     public void onPick(int index, String name) {
                         PhotoPicker.startTakePictureIntent(activity);
                     }
                 })
-                .addItem(R.string.photo_from_gallery, new PickerCallback() {
+                .addItem(R.string.photo_from_gallery, new PickerCallback<String>() {
                     @Override
                     public void onPick(int index, String name) {
                         PhotoPicker.startPickImageIntent(activity);
@@ -39,13 +39,13 @@ public class PhotoPickerDialog {
 
     public static PickerDialog get(final Fragment fragment) {
         return PickerDialog.newInstance(R.string.photo_title, REQUEST_PICK_PHOTO_CODE)
-                .addItem(R.string.photo_camera, new PickerCallback() {
+                .addItem(R.string.photo_camera, new PickerCallback<String>() {
                     @Override
                     public void onPick(int index, String name) {
                         PhotoPicker.startTakePictureIntent(fragment);
                     }
                 })
-                .addItem(R.string.photo_from_gallery, new PickerCallback() {
+                .addItem(R.string.photo_from_gallery, new PickerCallback<String>() {
                     @Override
                     public void onPick(int index, String name) {
                         PhotoPicker.startPickImageIntent(fragment);
