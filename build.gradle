@@ -9,7 +9,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+//        testInstrumentationRunner "android.test.InstrumentationTestRunner"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     compileOptions {
@@ -29,11 +31,34 @@ android {
         }
     }
 
+    // Encapsulates options for running tests.
+    testOptions {
+        // Changes the directory where Gradle saves test reports. By default, Gradle saves test reports
+        // in the path_to_your_project/module_name/build/outputs/reports/ directory.
+        // '$rootDir' sets the path relative to the root directory of the current project.
+        reportDir "$rootDir/test-reports"
+        // Changes the directory where Gradle saves test results. By default, Gradle saves test results
+        // in the path_to_your_project/module_name/build/outputs/test-results/ directory.
+        // '$rootDir' sets the path relative to the root directory of the current project.
+        resultsDir "$rootDir/test-results"
+    }
+
+    testOptions {
+        // Encapsulates options for local unit tests.
+        unitTests {
+            // Encapsulates options for controlling how Gradle executes local unit tests. For a list
+            // of all the options you can specify, read Gradle's reference documentation.
+            all {
+                // Sets JVM argument(s) for the test JVM(s).
+                jvmArgs '-XX:MaxPermSize=256m'
+             }
+        }
+    }
 }
 
 dependencies {
     compile project(path: ':library-core')
 
-//    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-//    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
 }
