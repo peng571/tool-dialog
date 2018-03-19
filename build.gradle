@@ -48,10 +48,10 @@ android {
         unitTests {
             // Encapsulates options for controlling how Gradle executes local unit tests. For a list
             // of all the options you can specify, read Gradle's reference documentation.
-            all {
-                // Sets JVM argument(s) for the test JVM(s).
-                jvmArgs '-XX:MaxPermSize=256m'
-             }
+//            all {
+//                 Sets JVM argument(s) for the test JVM(s).
+//                jvmArgs '-XX:MaxPermSize=256m'
+//             }
         }
     }
 }

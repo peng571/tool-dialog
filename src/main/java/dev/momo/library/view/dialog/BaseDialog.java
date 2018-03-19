@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import dev.momo.library.core.log.Logger;
+import java.lang.reflect.Field;
 
-import static android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
+import dev.momo.library.core.log.Logger;
 
 /**
  * (TBD)
@@ -40,7 +40,7 @@ public abstract class BaseDialog extends DialogFragment {
 
         try {
             fm = activity.getFragmentManager();
-//            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
+            //            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             show(fm, TAG);
         } catch (IllegalStateException ignored) {
@@ -58,7 +58,7 @@ public abstract class BaseDialog extends DialogFragment {
 
         try {
             fm = fragment.getFragmentManager();
-//            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
+            //            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             setTargetFragment(fragment, getRequestCode());
             show(fm, getTagName());
@@ -98,12 +98,12 @@ public abstract class BaseDialog extends DialogFragment {
         if (holder != null) {
             holder.doOnDialogYesClick(getRequestCode());
         }
-        dismiss();
+        onDismiss(getDialog());
     }
 
     protected void onCancel() {
         onCancel(getDialog());
-        dismiss();
+        onDismiss(getDialog());
     }
 
 
@@ -146,10 +146,10 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         Logger.D(TAG, "on dismiss");
-//        if (fm != null) {
-//            fm.popBackStack();
-            fm = null;
-//        }
+        //        if (fm != null) {
+        //            fm.popBackStack();
+        fm = null;
+        //        }
         submitPressed = false;
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
@@ -169,35 +169,35 @@ public abstract class BaseDialog extends DialogFragment {
 
     protected abstract String getTagName();
 
-    //    /**
-    //     * Add code below into base fragment class could fix many fragment exception when change
-    //     */
-    //    private static final Field sChildFragmentManagerField;
-    //
-    //    static {
-    //        Field f = null;
-    //        try {
-    //            f = Fragment.class.getDeclaredField("mChildFragmentManager");
-    //            f.setAccessible(true);
-    //        } catch (NoSuchFieldException e) {
-    //            Logger.E(TAG, "Error getting mChildFragmentManager field", e);
-    //        }
-    //        sChildFragmentManagerField = f;
-    //    }
-    //
-    //    @Override
-    //    public void onDetach() {
-    //        super.onDetach();
-    //
-    //        if (sChildFragmentManagerField != null) {
-    //            try {
-    //                sChildFragmentManagerField.set(this, null);
-    //            } catch (Exception e) {
-    //                Logger.E(TAG, "Error setting mChildFragmentManager field", e);
-    //            }
-    //        }
-    //    }
-    //    /**
-    //     * End
-    //     */
+    /**
+     * Add code below into base fragment class could fix many fragment exception when change
+     */
+    private static final Field sChildFragmentManagerField;
+
+    static {
+        Field f = null;
+        try {
+            f = Fragment.class.getDeclaredField("mChildFragmentManager");
+            f.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            Logger.E(TAG, "Error getting mChildFragmentManager field", e);
+        }
+        sChildFragmentManagerField = f;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        if (sChildFragmentManagerField != null) {
+            try {
+                sChildFragmentManagerField.set(this, null);
+            } catch (Exception e) {
+                Logger.E(TAG, "Error setting mChildFragmentManager field", e);
+            }
+        }
+    }
+    /**
+     * End
+     */
 }
