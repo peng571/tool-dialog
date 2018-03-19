@@ -1,4 +1,4 @@
-package dev.momo.library.view;
+package dev.momo.library.view.dialog;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -8,20 +8,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.*;
 
 /**
- * Instrumentation test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Created by momo peng on 2018/3/13.
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class OkDialogTest {
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
+        //        OKDialog.newInstance(R.string.double_click_to_quit, 6).show(appContext.);
 
-        assertEquals("momo.library.view", appContext.getPackageName());
+        assertEquals("android.alchema.com.app", appContext.getPackageName());
     }
 }
