@@ -146,10 +146,10 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         Logger.D(TAG, "on dismiss");
-        //        if (fm != null) {
-        //            fm.popBackStack();
-        fm = null;
-        //        }
+        if (fm != null) {
+            fm.popBackStack();
+            fm = null;
+        }
         submitPressed = false;
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
@@ -163,6 +163,7 @@ public abstract class BaseDialog extends DialogFragment {
         if (holder != null) {
             holder.doOnDialogDismiss(getRequestCode());
         }
+        dismiss();
     }
 
     protected abstract int getRequestCode();
