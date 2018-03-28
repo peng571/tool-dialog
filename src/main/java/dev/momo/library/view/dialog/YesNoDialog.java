@@ -10,6 +10,7 @@ import dev.momo.library.view.R;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
+import static dev.momo.library.view.dialog.DialogConstants.KEY_REQUEST;
 
 /**
  * DialogFragment with two button and simple message
@@ -67,7 +68,7 @@ public class YesNoDialog extends BaseDialog {
         int iconRes = bundle.getInt(DialogConstants.KEY_ICON_DRAWABLE, 0);
         int yesRes = bundle.getInt(DialogConstants.KEY_YES_RES, R.string.yes);
         int noRes = bundle.getInt(DialogConstants.KEY_NO_RES, R.string.no);
-        request = bundle.getInt(DialogConstants.KEY_REQUEST, 0);
+        request = bundle.getInt(KEY_REQUEST);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         if (titleRes != 0) {
@@ -99,7 +100,8 @@ public class YesNoDialog extends BaseDialog {
 
     @Override
     protected int getRequestCode() {
-        return request;
+        Bundle bundle = getArguments();
+        return bundle.getInt(DialogConstants.KEY_REQUEST, request);
     }
 
     @Override

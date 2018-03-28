@@ -67,7 +67,7 @@ public class PickerDialog extends BaseDialog {
         String title = "";
         if (getArguments() != null) {
             title = ResourceHelper.getString(getArguments().getInt(KEY_TITLE_RES, 0));
-            request = getArguments().getInt(KEY_REQUEST, 0);
+            request = getArguments().getInt(KEY_REQUEST);
         }
 
         if (!title.isEmpty()) {
@@ -131,7 +131,8 @@ public class PickerDialog extends BaseDialog {
 
     @Override
     protected int getRequestCode() {
-        return request;
+        Bundle bundle = getArguments();
+        return bundle.getInt(DialogConstants.KEY_REQUEST, request);
     }
 
     @Override

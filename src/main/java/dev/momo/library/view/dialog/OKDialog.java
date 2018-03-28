@@ -51,9 +51,9 @@ public class OKDialog extends BaseDialog {
         int messageRes = bundle.getInt(DialogConstants.KEY_MESSAGE_RES, 0);
         int iconRes = bundle.getInt(DialogConstants.KEY_ICON_DRAWABLE, 0);
         int yesRes = bundle.getInt(DialogConstants.KEY_YES_RES, R.string.ok);
-        final int request = bundle.getInt(KEY_REQUEST, 0);
+        request = bundle.getInt(KEY_REQUEST);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         if (titleRes != 0) {
             builder.setTitle(titleRes);
         }
@@ -64,6 +64,8 @@ public class OKDialog extends BaseDialog {
             builder.setIcon(iconRes);
         }
 
+
+
         DialogInterface.OnClickListener dialogClickListener = (DialogInterface dialog, int which) -> onNext();
         builder.setPositiveButton(yesRes, dialogClickListener);
         return builder.create();
@@ -71,7 +73,8 @@ public class OKDialog extends BaseDialog {
 
     @Override
     protected int getRequestCode() {
-        return 0;
+        Bundle args = new Bundle();
+        return args.getInt(KEY_REQUEST, request);
     }
 
     @Override

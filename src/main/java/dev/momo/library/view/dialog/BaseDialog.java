@@ -25,8 +25,9 @@ public abstract class BaseDialog extends DialogFragment {
     private final static String SUBMIT_PRESSED = "SUBMIT_PRESSED";
     protected boolean submitPressed = false;
 
-    public int request = 0;
     private FragmentManager fm;
+
+    protected int request;
 
     /**
      * Show dialog methods
