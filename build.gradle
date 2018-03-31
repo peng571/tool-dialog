@@ -1,64 +1,52 @@
-apply plugin: 'com.android.library'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
-    compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.sourceCompatibility
+buildscript {
+    repositories {
+        google()
+        jcenter()
     }
-
-    defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-//        testInstrumentationRunner "android.test.InstrumentationTestRunner"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
+}
 
-    buildTypes {
-        debug {
-            minifyEnabled false
-            useProguard false
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            name 'core-snapshot'
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
         }
-        release {
-            minifyEnabled true
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
 
-    // Encapsulates options for running tests.
-    testOptions {
-        // Changes the directory where Gradle saves test reports. By default, Gradle saves test reports
-        // in the path_to_your_project/module_name/build/outputs/reports/ directory.
-        // '$rootDir' sets the path relative to the root directory of the current project.
-        reportDir "$rootDir/test-reports"
-        // Changes the directory where Gradle saves test results. By default, Gradle saves test results
-        // in the path_to_your_project/module_name/build/outputs/test-results/ directory.
-        // '$rootDir' sets the path relative to the root directory of the current project.
-        resultsDir "$rootDir/test-results"
-    }
-
-    testOptions {
-        // Encapsulates options for local unit tests.
-        unitTests {
-            // Encapsulates options for controlling how Gradle executes local unit tests. For a list
-            // of all the options you can specify, read Gradle's reference documentation.
-//            all {
-//                 Sets JVM argument(s) for the test JVM(s).
-//                jvmArgs '-XX:MaxPermSize=256m'
-//             }
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+            options.addStringOption('encoding', 'UTF-8')
         }
     }
 }
 
-dependencies {
-    compile project(path: ':library-core')
 
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
+ext {
+    // build setting
+    minSdkVersion = 16
+    compileSdkVersion = 26
+    targetSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
+    supportLibraryVersion = '27.1.0'
+
+    gsonVersion = "2.8.1"
+    jacksonVersion = "2.9.1"
+
+
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
