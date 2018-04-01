@@ -79,7 +79,7 @@ public class PickerDialog extends BaseDialog {
     }
 
 
-    public PickerDialog addItem(String name, PickerCallback<String> callback) {
+    public PickerDialog addItem(String name, PickerCallback<String> callback) throws ClassNotFoundException {
         getItems().add(new PickerItem<String>(name, callback));
         return this;
     }

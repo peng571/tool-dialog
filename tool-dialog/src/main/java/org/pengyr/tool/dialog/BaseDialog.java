@@ -23,7 +23,7 @@ import java.lang.reflect.Field;
  * Updated on --.
  * by momo peng
  */
-abstract class BaseDialog extends DialogFragment {
+public abstract class BaseDialog extends DialogFragment {
 
     private final static String TAG = BaseDialog.class.getSimpleName();
 
