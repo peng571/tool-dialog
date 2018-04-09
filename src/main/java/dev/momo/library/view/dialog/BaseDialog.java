@@ -45,7 +45,6 @@ public abstract class BaseDialog extends DialogFragment {
             submitPressed = true;
             show(fm, TAG);
         } catch (IllegalStateException ignored) {
-            Logger.E(TAG, ignored);
             // There's no way to avoid getting this if saveInstanceState has already been called.
         }
     }
@@ -64,7 +63,6 @@ public abstract class BaseDialog extends DialogFragment {
             setTargetFragment(fragment, getRequestCode());
             show(fm, getTagName());
         } catch (IllegalStateException ignored) {
-            Logger.E(TAG, ignored);
             // There's no way to avoid getting this if saveInstanceState has already been called.
         }
     }
@@ -147,10 +145,6 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         Logger.D(TAG, "on dismiss");
-        if (fm != null) {
-            fm.popBackStack();
-            fm = null;
-        }
         submitPressed = false;
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
@@ -164,7 +158,16 @@ public abstract class BaseDialog extends DialogFragment {
         if (holder != null) {
             holder.doOnDialogDismiss(getRequestCode());
         }
-        dismiss();
+        try {
+            dismiss();
+            if (fm != null) {
+                fm.popBackStack();
+            }
+        } catch (IllegalStateException ignored) {
+            // There's no way to avoid getting this if saveInstanceState has already been called.
+        } finally {
+            fm = null;
+        }
     }
 
     protected abstract int getRequestCode();
