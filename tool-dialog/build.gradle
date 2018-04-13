@@ -1,21 +1,31 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies { classpath 'com.novoda:bintray-release:0.8.1' }
+}
+
+ext {
+    libraryName = 'tool-dialog'
+    libraryDescription = "dialogs"
+}
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
+    compileSdkVersion compileSdk
+    buildToolsVersion buildToolsVersion
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.sourceCompatibility
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versionCode
+        versionName versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -36,21 +46,14 @@ android {
         // in the path_to_your_project/module_name/build/outputs/reports/ directory.
         // '$rootDir' sets the path relative to the root directory of the current project.
         reportDir "$rootDir/test-reports"
-        // Changes the directory where Gradle saves test results. By default, Gradle saves test results
-        // in the path_to_your_project/module_name/build/outputs/test-results/ directory.
-        // '$rootDir' sets the path relative to the root directory of the current project.
-        resultsDir "$rootDir/test-results"
-    }
 
-    testOptions {
         // Encapsulates options for local unit tests.
         unitTests {
             // Encapsulates options for controlling how Gradle executes local unit tests. For a list
             // of all the options you can specify, read Gradle's reference documentation.
-//            all {
-//                 Sets JVM argument(s) for the test JVM(s).
-//                jvmArgs '-XX:MaxPermSize=256m'
-//             }
+            all {
+                jvmArgs '-XX:MaxPermSize=256m'
+            }
         }
     }
 }
@@ -58,8 +61,21 @@ android {
 dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     implementation "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
-    implementation 'org.pengyr.tool:tool-core:1.0.0'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
 }
+
+publish {
+    userOrg = bintrayUser
+    groupId = libraryGroup
+    artifactId = libraryName
+    desc = libraryDescription
+    publishVersion = versionName
+    website = siteUrl
+    bintrayUser = bintrayUserName
+    bintrayKey = bintrayApikey
+    dryRun = false
+    autoPublish = true
+}
+

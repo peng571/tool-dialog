@@ -11,7 +11,8 @@ public class PickerItem<T> {
     private PickerCallback<T> callback;
 
 
-    public PickerItem(String name, PickerCallback<T> callback) throws ClassNotFoundException {
+    public PickerItem(String name, PickerCallback<T> callback)  {
+        // FIXME if t is not string type
         this.object = null;
         this.name = name;
         this.callback = callback;

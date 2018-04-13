@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">example</string>
+    <string name="app_name">dialogs sample</string>
+
+    <string name="ok_dialog">OK dialog</string>
+    <string name="yesno_dialog">Yes No dialog</string>
+    <string name="picker_dialog">Picker dialog</string>
+
+    <string name="ok_dialog_message">A dialog with some message and a OK button</string>
+    <string name="yesno_dialog_message">A dialog with some message and YES and NO button</string>
+    <string name="picker_dialog_title">Picker Dialog</string>
+    <string name="picker_item_1">Pick Item 1</string>
+    <string name="picker_item_2">Pick Item 2</string>
+    <string name="picker_item_3">Pick Item 3</string>
 </resources>

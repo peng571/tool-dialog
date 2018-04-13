@@ -139,11 +139,7 @@ public abstract class BaseDialog extends DialogFragment {
      */
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (fm != null) {
-            fm.popBackStack();
-            fm = null;
-        }
-        submitPressed = false;
+
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
         // use fragment bigger then activity
@@ -155,6 +151,17 @@ public abstract class BaseDialog extends DialogFragment {
         }
         if (holder != null) {
             holder.doOnDialogDismiss(getRequestCode());
+        }
+
+        try {
+            if (fm != null) {
+                fm.popBackStack();
+            }
+        } catch (IllegalStateException ignored) {
+            // There's no way to avoid getting this if saveInstanceState has already been called.
+        } finally {
+            fm = null;
+            submitPressed = false;
         }
         dismiss();
     }

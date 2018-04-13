@@ -1,0 +1,41 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textAllCaps="false"
+            android:text="@string/ok_dialog"
+            />
+
+        <Button
+            android:id="@+id/yesnoButton"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/yesno_dialog"
+            />
+
+        <Button
+            android:id="@+id/pickerButton"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/picker_dialog"
+            />
+
+    </LinearLayout>
+
+
+</layout>
