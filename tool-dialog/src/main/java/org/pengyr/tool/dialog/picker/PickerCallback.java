@@ -6,8 +6,14 @@ import android.support.annotation.Nullable;
  * Created by Peng on 2017/3/23.
  */
 
-public interface PickerCallback<T> {
+public interface PickerCallback<V> {
 
-    void onPick(int index, @Nullable T value);
+    /**
+     *
+     * @param index
+     * @param value
+     * @return
+     */
+    void onItemPickup(int index, @Nullable V value);
 
 }

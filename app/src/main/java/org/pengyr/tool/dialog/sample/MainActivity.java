@@ -12,7 +12,7 @@ import org.pengyr.tool.dialog.holder.DialogNoHolder;
 import org.pengyr.tool.dialog.holder.DialogYesHolder;
 import org.pengyr.tool.dialog.picker.PickerCallback;
 import org.pengyr.tool.dialog.picker.PickerDialog;
-import org.pengyr.tool.dialog.picker.PickerItem;
+import org.pengyr.tool.dialog.picker.SimplePickerItem;
 import org.pengyr.tool.dialog.sample.databinding.MainActivityBinding;
 
 
@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements DialogYesHolder, 
     }
 
     void showPickerDialog() {
-        PickerCallback<String> onPick = (index, itemName) ->
-                Toast.makeText(this, "Pick item [" + itemName + "] at index " + index, Toast.LENGTH_SHORT).show();
+        PickerCallback<String> onPick = (index, value) ->
+                Toast.makeText(this, "Pick item [" + value + "] at index " + index, Toast.LENGTH_SHORT).show();
         PickerDialog.newInstance(R.string.picker_dialog_title, PICKER_RESULT)
-                .addItem(new PickerItem<>(getString(R.string.picker_item_1), onPick))
-                .addItem(new PickerItem<>(getString(R.string.picker_item_2), onPick))
-                .addItem(new PickerItem<>(getString(R.string.picker_item_3), onPick))
+                .addItem(new SimplePickerItem(getString(R.string.picker_item_1), onPick))
+                .addItem(new SimplePickerItem(getString(R.string.picker_item_2), onPick))
+                .addItem(new SimplePickerItem(getString(R.string.picker_item_3), onPick))
                 .show(this);
     }
 

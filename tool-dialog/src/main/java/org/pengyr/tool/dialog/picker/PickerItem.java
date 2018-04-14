@@ -1,49 +1,15 @@
 package org.pengyr.tool.dialog.picker;
 
-import android.support.annotation.Nullable;
+/**
+ * Created by Peng on 2018/4/14.
+ */
 
-public class PickerItem<T> {
+public interface PickerItem<N, V> {
 
-    @Nullable
-    private T object;
+    N getName();
 
-    private String name;
-    private PickerCallback<T> callback;
+    V getValue();
 
-
-    public PickerItem(String name, PickerCallback<T> callback)  {
-        // FIXME if t is not string type
-        this.object = null;
-        this.name = name;
-        this.callback = callback;
-    }
-
-    public PickerItem(T object, PickerOption<T> option, PickerCallback<T> callback) {
-        this.object = object;
-        this.name = option.getName(object);
-        this.callback = callback;
-    }
-
-    public void click() {
-        callback.onPick(0, getValue());
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public T getValue() {
-        return object;
-    }
-
-
-    public PickerCallback getCallback() {
-        return callback;
-    }
-
-    public interface PickerOption<T> {
-        String getName(T t);
-    }
+    void onPickUp(int index);
 
 }

@@ -15,6 +15,7 @@ android {
 
     compileSdkVersion compileSdk
     buildToolsVersion buildToolsVersion
+
     compileOptions {
         sourceCompatibility javaVersion
         targetCompatibility javaVersion
@@ -28,6 +29,16 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -37,23 +48,6 @@ android {
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    // Encapsulates options for running tests.
-    testOptions {
-        // Changes the directory where Gradle saves test reports. By default, Gradle saves test reports
-        // in the path_to_your_project/module_name/build/outputs/reports/ directory.
-        // '$rootDir' sets the path relative to the root directory of the current project.
-        reportDir "$rootDir/test-reports"
-
-        // Encapsulates options for local unit tests.
-        unitTests {
-            // Encapsulates options for controlling how Gradle executes local unit tests. For a list
-            // of all the options you can specify, read Gradle's reference documentation.
-            all {
-                jvmArgs '-XX:MaxPermSize=256m'
-            }
         }
     }
 }

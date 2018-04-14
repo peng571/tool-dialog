@@ -1,21 +1,43 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-optimizationpasses 30
+-mergeinterfacesaggressively
+-dontpreverify
+-optimizations !code/simplification/arithmetic
+-keepattributes SourceFile,LineNumberTable
+-repackageclasses ''
+-allowaccessmodification
+-useuniqueclassmembernames
+-keeppackagenames doNotKeepAThing
+-ignorewarnings
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-verbose
+-dump class_files.txt
+-printseeds seeds.txt
+-printusage unused.txt
+-printmapping mapping.txt
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepclasseswithmembernames public class * extends android.app.Activity{
+    public protected *;
+}
+-keepclasseswithmembernames public class * extends android.content.BroadcastReceiver{
+    public *;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static *** v(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** d(...);
+    public static *** e(...);
+}
+
+
+# Preserve static fields of inner classes of R classes that might be accessed
+# through introspection.
+-keepclassmembers class **.R$* {
+  public static <fields>;
+}
+ 
+-keep public class * extends java.lang.Enum
+ 
+ 

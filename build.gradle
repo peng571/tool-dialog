@@ -7,8 +7,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
-        // For dex count methods
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4'
     }
 }
 
@@ -17,8 +15,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-        maven { url 'https://maven.google.com/' }
         tasks.withType(Javadoc) {
             options.addStringOption('Xdoclint:none', '-quiet')
             options.addStringOption('encoding', 'UTF-8')
@@ -40,16 +36,16 @@ ext {
     libraryGroup = 'org.pengyr.tool'
     siteUrl = 'https://github.com/peng571/tool-dialog'
 
-    versionCode = 5
-    versionName = '0.0.5'
+    versionCode = 6
+    versionName = '0.0.6-1'
 
     bintrayUserName = userName
     bintrayApikey = apikey
 
     javaVersion = JavaVersion.VERSION_1_8
     buildToolVersion = '27.0.3'
-    compileSdk = 27
-    targetSdk = 27
+    compileSdk = 26
+    targetSdk = 26
     minSdk = 16
 
     supportLibraryVersion = '27.1.1'

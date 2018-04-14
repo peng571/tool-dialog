@@ -6,7 +6,6 @@
 -repackageclasses ''
 -allowaccessmodification
 -useuniqueclassmembernames
--keeppackagenames doNotKeepAThing
 -ignorewarnings
 
 -verbose
@@ -15,33 +14,7 @@
 -printusage unused.txt
 -printmapping mapping.txt
 
-#-keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
--dontnote com.android.vending.licensing.ILicensingService
-
-
--keep public class dev.momo.library.**{
-    public protected *;
-}
-
-
--keep class dev.momo.library.core.Helper{ *; }
-
--assumenosideeffects class android.util.Log {
-    public static *;
-}
-
-
--assumenosideeffects class dev.momo.library.core.log.Logger {
-    public static *;
-}
-
+-dontwarn java.lang.invoke.**
 
 # Preserve static fields of inner classes of R classes that might be accessed
 # through introspection.
@@ -60,4 +33,3 @@
     public static ** valueOf(java.lang.String);
 }
 
--dontwarn java.lang.invoke.**
