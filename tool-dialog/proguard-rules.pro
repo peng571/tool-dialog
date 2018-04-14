@@ -6,6 +6,7 @@
 -repackageclasses ''
 -allowaccessmodification
 -useuniqueclassmembernames
+-keeppackagenames doNotKeepAThing
 -ignorewarnings
 
 -verbose
@@ -14,7 +15,25 @@
 -printusage unused.txt
 -printmapping mapping.txt
 
--dontwarn java.lang.invoke.**
+#-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
+-dontnote com.android.vending.licensing.ILicensingService
+
+
+-keep public class org.pengyr.tool.dialog.**{
+    public protected *;
+}
+
+-keep public interface org.pengyr.tool.core.**{
+    public protected *;
+}
+
 
 # Preserve static fields of inner classes of R classes that might be accessed
 # through introspection.
@@ -33,3 +52,4 @@
     public static ** valueOf(java.lang.String);
 }
 
+-dontwarn java.lang.invoke.**
