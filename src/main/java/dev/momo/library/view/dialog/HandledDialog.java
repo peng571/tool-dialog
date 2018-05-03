@@ -11,37 +11,34 @@ import java.lang.reflect.Field;
 
 import dev.momo.library.core.log.Logger;
 
+
 /**
- * (TBD)
+ * Base parent of all dialog,
+ * extends from DialogFragment
  * <p>
  * Created on 2017/12/19.
  * Updated on --.
  * by momo peng
  */
-public abstract class BaseDialog extends DialogFragment {
+public abstract class HandledDialog extends DialogFragment {
 
-    private final static String TAG = BaseDialog.class.getSimpleName();
+    private final static String TAG = HandledDialog.class.getSimpleName();
 
     private final static String SUBMIT_PRESSED = "SUBMIT_PRESSED";
+
     protected boolean submitPressed = false;
+    protected int request;
 
     private FragmentManager fm;
-
-    protected int request;
 
     /**
      * Show dialog methods
      */
     public void show(AppCompatActivity activity) {
-        Logger.D(TAG, "dialog show");
-        if (submitPressed) {
-            Logger.WS(TAG, "dialog already shown");
-            return;
-        }
+        if (submitPressed) return;
 
         try {
             fm = activity.getFragmentManager();
-            //            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             show(fm, TAG);
         } catch (IllegalStateException ignored) {
@@ -50,15 +47,9 @@ public abstract class BaseDialog extends DialogFragment {
     }
 
     public void show(Fragment fragment) {
-        Logger.D(TAG, "dialog show");
-        if (submitPressed) {
-            Logger.WS(TAG, "dialog already shown");
-            return;
-        }
-
+        if (submitPressed) return;
         try {
             fm = fragment.getFragmentManager();
-            //            fm.popBackStackImmediate(TAG, POP_BACK_STACK_INCLUSIVE);
             submitPressed = true;
             setTargetFragment(fragment, getRequestCode());
             show(fm, getTagName());
@@ -114,7 +105,6 @@ public abstract class BaseDialog extends DialogFragment {
      */
     @Override
     public void onCancel(DialogInterface dialog) {
-        Logger.D(TAG, "on onCancel");
         DialogFinishHolder holder = null;
         if (getTargetFragment() instanceof DialogFinishHolder) {
             holder = (DialogFinishHolder) getTargetFragment();
@@ -140,12 +130,11 @@ public abstract class BaseDialog extends DialogFragment {
     /**
      * will call dialogFinishHolder.onDialogFinish if have,
      *
-     * @param dialog
+     * @param dialog dialog interface
      */
     @Override
     public void onDismiss(DialogInterface dialog) {
-        Logger.D(TAG, "on dismiss");
-        submitPressed = false;
+
         if (getActivity() == null) return;
         DialogFinishHolder holder = null;
         // use fragment bigger then activity
@@ -158,8 +147,8 @@ public abstract class BaseDialog extends DialogFragment {
         if (holder != null) {
             holder.doOnDialogDismiss(getRequestCode());
         }
+
         try {
-            dismiss();
             if (fm != null) {
                 fm.popBackStack();
             }
@@ -167,7 +156,9 @@ public abstract class BaseDialog extends DialogFragment {
             // There's no way to avoid getting this if saveInstanceState has already been called.
         } finally {
             fm = null;
+            submitPressed = false;
         }
+        dismiss();
     }
 
     protected abstract int getRequestCode();
@@ -185,7 +176,7 @@ public abstract class BaseDialog extends DialogFragment {
             f = Fragment.class.getDeclaredField("mChildFragmentManager");
             f.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            Logger.E(TAG, "Error getting mChildFragmentManager field", e);
+            Logger.ES(TAG, "Error getting mChildFragmentManager field", e);
         }
         sChildFragmentManagerField = f;
     }
@@ -198,7 +189,7 @@ public abstract class BaseDialog extends DialogFragment {
             try {
                 sChildFragmentManagerField.set(this, null);
             } catch (Exception e) {
-                Logger.E(TAG, "Error setting mChildFragmentManager field", e);
+                Logger.ES(TAG, "Error setting mChildFragmentManager field", e);
             }
         }
     }

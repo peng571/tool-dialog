@@ -22,7 +22,7 @@ import static dev.momo.library.view.dialog.DialogConstants.KEY_REQUEST;
  * - Handle cancel event with DialogFinishHolder.onDialogCancel
  * - Handle dismiss event with DialogFinishHolder.onDialogDismiss
  */
-public class OKDialog extends BaseDialog {
+public class OKDialog extends HandledDialog {
 
     private final static String TAG = OKDialog.class.getSimpleName();
 

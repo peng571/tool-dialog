@@ -30,7 +30,7 @@ import static dev.momo.library.view.dialog.DialogConstants.KEY_REQUEST;
  * Updated on 2017/4/27.
  * by momo peng
  */
-public class YesNoDialog extends BaseDialog {
+public class YesNoDialog extends HandledDialog {
 
     private final static String TAG = YesNoDialog.class.getSimpleName();
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import dev.momo.library.core.log.Logger;
 import dev.momo.library.core.tool.ResourceHelper;
 import dev.momo.library.view.R;
-import dev.momo.library.view.dialog.BaseDialog;
+import dev.momo.library.view.dialog.HandledDialog;
 import dev.momo.library.view.dialog.DialogConstants;
 
 import static dev.momo.library.view.dialog.DialogConstants.KEY_REQUEST;
@@ -31,7 +31,7 @@ import static dev.momo.library.view.dialog.DialogConstants.KEY_TITLE_RES;
  * - Handle cancel event with DialogFinishHolder.onDialogCancel
  * - Handle dismiss event with DialogFinishHolder.onDialogDismiss
  */
-public class PickerDialog extends BaseDialog {
+public class PickerDialog extends HandledDialog {
 
     private static final String TAG = PickerDialog.class.getSimpleName();
 
@@ -55,6 +55,7 @@ public class PickerDialog extends BaseDialog {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Logger.D(TAG, "on create dialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -120,6 +121,7 @@ public class PickerDialog extends BaseDialog {
         return items;
     }
 
+    @SuppressWarnings("unchecked")
     public PickerItem<?> getItem(int position) {
         if (position < 0 || position >= items.size()) return null;
         return items.get(position);
