@@ -43,5 +43,4 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
 
     implementation project(path: ':tool-dialog')
-
 }

@@ -43,8 +43,7 @@ import org.pengyr.tool.dialog.holder.DialogYesHolder;
  * <p>
  * Created by momo peng on 2016/12/12.
  */
-public abstract class BaseDialogFragment extends BaseDialog
-        implements DialogInterface.OnShowListener {
+public abstract class BaseDialogFragment extends BaseDialog {
 
     private final static String TAG = BaseDialogFragment.class.getSimpleName();
 
@@ -60,7 +59,6 @@ public abstract class BaseDialogFragment extends BaseDialog
         // Do not override this method, unless needed to modify any dialog characteristics.
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setOnShowListener(this);
         return dialog;
     }
 

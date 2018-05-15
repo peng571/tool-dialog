@@ -14,19 +14,6 @@ if useing gradle, add this line into apps build.gradle
 
     implementation 'org.pengyr.tool:tool-dialog:[VERSION]'
 
-#### Maven
-
-> 還沒放上去
-
-or useing maven
-
-    <dependency>
-        <groupId>org.pengyr.tool</groupId>
-        <artifactId>tool-dialog</artifactId>
-        <version>[VERSION]</version>
-        <type>pom</type>
-    </dependency>
-
 
 ## 使用方法
 
@@ -37,23 +24,23 @@ or useing maven
 可以用一行程式碼就建立出一個含有訊息和確認按鈕的對話框。
 
 ```
-	OkDialog dialog = OKDialog.newInstance(R.string.ok_dialog_message, OK_RESULT)
+OkDialog dialog = OKDialog.newInstance(R.string.ok_dialog_message, OK_RESULT)
 ```
 
 並可直接使用`show(activity | fragment)`來跳出`Dialog`。
 
 ```
-	dialog.show(this);
+dialog.show(this);
 ```
 
 也可以以這樣的形式填入自帶的確認文字。
 
 ```
-	OKDialog.newInstance(
-		R.string.ok_dialog_message, 
-		R.string.ok_dialog_action, 
-		OK_RESULT)
-	.show(this);
+OKDialog.newInstance(
+    R.string.ok_dialog_message,
+    R.string.ok_dialog_action,
+    OK_RESULT)
+.show(this);
 ```
  
 
@@ -62,18 +49,18 @@ or useing maven
 可以用一行就建立出一個帶有自訂訊息，與是與否按鈕的對話框。
 
 ```
-    YesNoDialog.newInstance(R.string.yesno_dialog_message, YESNO_RESULT).show(this);
+YesNoDialog.newInstance(R.string.yesno_dialog_message, YESNO_RESULT).show(this);
 ```
 
 同樣的，也可以帶入自訂的是或否文字來提醒使用者。
 
 ```
-    YesNoDialog.newInstance(
-    	R.string.yesno_dialog_message, 
-    	R.string.yesno_dialog_yes_action, 
-    	R.string.yesno_dialog_no_action,
-    	YESNO_RESULT)
-    .show(this);
+YesNoDialog.newInstance(
+    R.string.yesno_dialog_message,
+    R.string.yesno_dialog_yes_action,
+    R.string.yesno_dialog_no_action,
+    YESNO_RESULT)
+.show(this);
 ```
 
 
@@ -87,15 +74,14 @@ or useing maven
 如果在一個頁面會同時使用多個dialog，則可以以自訂不同的`requestCode`來作為識別。
 
 ```
-	switch(requestCode){
-		case OK_RESULT:
-			// do when is from ok dialog
-			break;
-		case YES_NO_RESILT:
-			// do when is from yes no dialog
-			break;
-	}
-
+switch(requestCode){
+    case OK_RESULT:
+        // do when is from ok dialog
+        break;
+    case YES_NO_RESILT:
+        // do when is from yes no dialog
+        break;
+}
 ```
 
 
@@ -122,8 +108,65 @@ or useing maven
 
 ## PickerDialog
 
-待補。
- 
+PickerDialog提供快速建立選單Dialog的方法，可以快速地設定裡面物件，並在設定完成後，透過`onShow(this)`顯示。
+
+```
+PickerDialog.newInstance(R.string.picker_dialog_title, PICKER_RESULT)
+    .addItem(new SimplePickerItem(getString(R.string.picker_item_1), onPick))
+    .addItem(new SimplePickerItem(getString(R.string.picker_item_2), onPick))
+    .addItem(new SimplePickerItem(getString(R.string.picker_item_3), onPick))
+    .show(this);
+```
+
+其中傳入的onPick物件，是實作`PickerCallback`的callback物件，可自行設定按下的事件，並在當設定的選項被按下的時候callback。
+
+```
+PickerCallback<String> onPick = (index, value) -> {
+    // do on item pick
+}
+```
+
+
+## Custom Dialog
+
+可以繼承`BaseDialogFragment`來實做客製化的Dialog，
+在onCreateView()裡面完成自己的Dialog頁面，就像實作其他fragment頁面一樣。
+
+
+```
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    // Inflate the layout to use as dialog or embedded fragment
+    CustomDialogBinding binding = DataBindingUtil.inflate(inflater, R.layout.custom_dialog, container, true);
+    String message = getArguments().getString(EXTRA_KEY_MESSAGE, "");
+    binding.messageView.setText(message);
+    binding.okButton.setOnClickListener((View view) -> onNext());
+    return binding.getRoot();
+}
+```
+
+如果有需要參數的傳遞，可自行修改newInstance()，改成帶入需要的參數(Object whatYouWant)。
+
+```
+public static CustomDialog newInstance(String message) {
+    CustomDialog f = new CustomDialog();
+
+    // Supply num input as an argument.
+    Bundle args = new Bundle();
+    args.putString(EXTRA_KEY_MESSAGE, message);
+    f.setArguments(args);
+    return f;
+}
+```
+
+之後直接在要使用dialog的頁面，`newInstance().show(this)`,
+或者自行根據設定的參數來呼叫`newInstance(objectThatYouWant).show(this)`。
+
+切勿直接使用`new CustomDialog()`來建立實體。
+
+
+
+完整可看sample裡的`CustomDialog.class`
 
 
 

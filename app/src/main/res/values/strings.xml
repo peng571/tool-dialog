@@ -11,4 +11,7 @@
     <string name="picker_item_1">Pick Item 1</string>
     <string name="picker_item_2">Pick Item 2</string>
     <string name="picker_item_3">Pick Item 3</string>
+    <string name="picker_dialog2_title">Picker Dialog\nwith custom item</string>
+    <string name="custom_dialog">Custom Dialog</string>
+
 </resources>

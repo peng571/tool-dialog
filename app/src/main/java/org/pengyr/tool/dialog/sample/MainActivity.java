@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements DialogYesHolder, 
         binding.okButton.setOnClickListener((v) -> showOKDialog());
         binding.yesnoButton.setOnClickListener((v) -> showYesNoDialog());
         binding.pickerButton.setOnClickListener((v) -> showPickerDialog());
+        binding.picker2Button.setOnClickListener(v -> showPickerDialogWithCustomItem());
+        binding.customButton.setOnClickListener((v) -> showCustomDialog());
     }
 
     @Override protected void onDestroy() {
@@ -61,6 +63,15 @@ public class MainActivity extends AppCompatActivity implements DialogYesHolder, 
                 .addItem(new SimplePickerItem(getString(R.string.picker_item_2), onPick))
                 .addItem(new SimplePickerItem(getString(R.string.picker_item_3), onPick))
                 .show(this);
+    }
+
+    void showPickerDialogWithCustomItem() {
+        // TODO
+        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+    }
+
+    void showCustomDialog() {
+        CustomDialog.newInstance("I am a custom dialog, \nI can set with any layout.xml you like").show(this);
     }
 
     @Override public void doOnDialogNoClick(int request) {
@@ -93,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements DialogYesHolder, 
             case PICKER_RESULT:
                 Toast.makeText(this, "Picker dialog result cancel", Toast.LENGTH_SHORT).show();
                 break;
+            case CustomDialog.CUSTOM_RESULT:
+                Toast.makeText(this, "Custom dialog result cancel", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -106,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements DialogYesHolder, 
                 break;
             case PICKER_RESULT:
                 Toast.makeText(this, "Picker dialog dismiss", Toast.LENGTH_SHORT).show();
+                break;
+            case CustomDialog.CUSTOM_RESULT:
+                Toast.makeText(this, "Custom dialog dismiss", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
