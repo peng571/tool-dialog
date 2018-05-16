@@ -36,8 +36,8 @@ ext {
     libraryGroup = 'org.pengyr.tool'
     siteUrl = 'https://github.com/peng571/tool-dialog'
 
-    versionCode = 7
-    versionName = '0.0.7'
+    versionCode = 10
+    versionName = '1.0.0'
 
     bintrayUserName = userName
     bintrayApikey = apikey
